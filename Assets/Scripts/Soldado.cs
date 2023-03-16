@@ -11,11 +11,20 @@ public class Soldado : MonoBehaviour
     void Start()
     {
         Agente = GetComponent<NavMeshAgent>();
+        //Randomizar
+        ponteiro = Random.Range(0, Caminhos.Count);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Ronda();
+    }
+
+    public void Ronda()
+    {
+        //Quero que vá para ronda
+        Agente.SetDestination(Caminhos[ponteiro].transform.position);
     }
 }
