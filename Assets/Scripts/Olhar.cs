@@ -20,8 +20,7 @@ public class Olhar : MonoBehaviour
             if(hit.collider.gameObject.tag == "Inimigo")
             {
                 Debug.Log("Acertou!!!!");
-                Debug.DrawRay(transform.position, frente, Color.red);
-                
+                Debug.DrawRay(transform.position, frente, Color.red);   
             }
             else
             {
