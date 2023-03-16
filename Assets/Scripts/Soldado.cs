@@ -33,6 +33,7 @@ public class Soldado : MonoBehaviour
     }
     public void Encontrou(GameObject meuAlvo)
     {
+        //Recebe o Alvo
         Alvo = meuAlvo;
         atacando = true;
     }

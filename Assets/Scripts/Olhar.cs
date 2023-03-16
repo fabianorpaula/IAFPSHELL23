@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Olhar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Soldado meuSoldado;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +15,8 @@ public class Olhar : MonoBehaviour
         {
             if(hit.collider.gameObject.tag == "Inimigo")
             {
-                Debug.Log("Acertou!!!!");
+                
+                meuSoldado.Encontrou(hit.collider.gameObject);
                 Debug.DrawRay(transform.position, frente, Color.red);   
             }
         }
