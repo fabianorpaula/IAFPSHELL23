@@ -15,5 +15,17 @@ public class Olhar : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 frente = transform.TransformDirection(Vector3.forward) * 10;
+        if(Physics.Raycast(transform.position, frente, out hit, 10))
+        {
+            if(hit.collider.gameObject.tag == "Inimigo")
+            {
+                Debug.Log("Acertou!!!!");
+                
+            }
+            else
+            {
+                Debug.Log("Não Acertou!!!!");
+            }
+        }
     }
 }
