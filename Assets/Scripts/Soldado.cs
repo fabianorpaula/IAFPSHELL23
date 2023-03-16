@@ -7,6 +7,8 @@ public class Soldado : MonoBehaviour
 {
     private NavMeshAgent Agente;
     public List<GameObject> Caminhos;
+    private GameObject Alvo;
+    private bool atacando = false;
     private int ponteiro;
     void Start()
     {
@@ -19,7 +21,25 @@ public class Soldado : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ronda();
+        if(atacando == true)
+        {
+            Ataque();
+        }
+        else
+        {
+            Ronda();
+        }
+        
+    }
+    public void Encontrou(GameObject meuAlvo)
+    {
+        Alvo = meuAlvo;
+        atacando = true;
+    }
+    public void Ataque()
+    {
+        //Encontrou Inimigo
+        Agente.SetDestination(Alvo.transform.position);
     }
 
     public void Ronda()
