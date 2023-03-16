@@ -22,11 +22,11 @@ public class Olhar : MonoBehaviour
                 Debug.Log("Acertou!!!!");
                 Debug.DrawRay(transform.position, frente, Color.red);   
             }
-            else
-            {
-                Debug.Log("Não Acertou!!!!");
-                Debug.DrawRay(transform.position, frente, Color.green);
-            }
+        }
+        else
+        {
+            Debug.Log("Não Acertou!!!!");
+            Debug.DrawRay(transform.position, frente, Color.yellow);
         }
     }
 }
