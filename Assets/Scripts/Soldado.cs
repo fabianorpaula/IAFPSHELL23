@@ -28,5 +28,9 @@ public class Soldado : MonoBehaviour
         Agente.SetDestination(Caminhos[ponteiro].transform.position);
         //Distancia Entre os Pontos
         float minhaDistancia = Vector3.Distance(transform.position, Caminhos[ponteiro].transform.position);
+        if(minhaDistancia < 3)
+        {
+            ponteiro = Random.Range(0, Caminhos.Count);
+        }
     }
 }
