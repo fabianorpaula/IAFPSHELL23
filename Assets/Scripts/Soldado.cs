@@ -9,6 +9,7 @@ public class Soldado : MonoBehaviour
     public List<GameObject> Caminhos;
     private GameObject Alvo;
     private bool atacando = false;
+    private bool zonaDeAtaque = false;
     private int ponteiro;
     void Start()
     {
@@ -23,7 +24,15 @@ public class Soldado : MonoBehaviour
     {
         if(atacando == true)
         {
-            Ataque();
+            if(zonaDeAtaque == true)
+            {
+                Atirar();
+            }
+            else
+            {
+                Ataque();
+            }
+            
         }
         else
         {
@@ -41,6 +50,10 @@ public class Soldado : MonoBehaviour
     {
         //Encontrou Inimigo
         Agente.SetDestination(Alvo.transform.position);
+        if(Vector3.Distance(transform.position, Alvo.transform.position) < 5)
+        {
+            zonaDeAtaque = true;
+        }
     }
 
     public void Ronda()
