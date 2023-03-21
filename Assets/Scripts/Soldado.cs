@@ -8,11 +8,14 @@ public class Soldado : MonoBehaviour
     private NavMeshAgent Agente;
     public List<GameObject> Caminhos;
     private GameObject Alvo;
+    private Animator Anim;
+
     private bool atacando = false;
     private bool zonaDeAtaque = false;
     private int ponteiro;
     void Start()
     {
+        Anim = GetComponent<Animator>();
         Agente = GetComponent<NavMeshAgent>();
         //Randomizar
         ponteiro = Random.Range(0, Caminhos.Count);
@@ -67,4 +70,12 @@ public class Soldado : MonoBehaviour
             ponteiro = Random.Range(0, Caminhos.Count);
         }
     }
+
+    void Atirar()
+    {
+        Agente.speed = 0;
+        transform.LookAt(Alvo.transform.position);
+        
+    }
+
 }
