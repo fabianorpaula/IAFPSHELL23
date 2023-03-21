@@ -75,6 +75,7 @@ public class Soldado : MonoBehaviour
     {
         Agente.speed = 0;
         transform.LookAt(Alvo.transform.position);
+        Anim.SetBool("Atirando", true);
         
     }
 
