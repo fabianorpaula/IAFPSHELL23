@@ -31,6 +31,12 @@ public class Soldado : MonoBehaviour
     {
         if(atacando == true)
         {
+            if(Alvo == null)
+            {
+                atacando = false;
+                zonaDeAtaque = false;
+            }
+
             if(zonaDeAtaque == true)
             {
                 Atirar();
@@ -65,6 +71,10 @@ public class Soldado : MonoBehaviour
 
     public void Ronda()
     {
+        Agente.speed = 10;
+        
+        Anim.SetBool("Atirando", false);
+
         //Quero que vá para ronda
         Agente.SetDestination(Caminhos[ponteiro].transform.position);
         //Distancia Entre os Pontos
