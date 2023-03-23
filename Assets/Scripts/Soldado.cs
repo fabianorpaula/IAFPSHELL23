@@ -13,6 +13,8 @@ public class Soldado : MonoBehaviour
     private bool atacando = false;
     private bool zonaDeAtaque = false;
     private int ponteiro;
+
+    public GameObject PontodeSaida;
     public int hp = 10;
     void Start()
     {
@@ -79,13 +81,16 @@ public class Soldado : MonoBehaviour
         transform.LookAt(Alvo.transform.position);
         Anim.SetBool("Atirando", true);
         
+
+
     }
 
     public void Disparando()
     {
         RaycastHit hit;
+        
         Vector3 frente = transform.TransformDirection(Vector3.forward) * 10;
-        if (Physics.Raycast(transform.position, frente, out hit, 10))
+        if (Physics.Raycast(PontodeSaida.transform.position, frente, out hit, 10))
         {
             if (hit.collider.gameObject.tag == "Inimigo")
             {
@@ -95,7 +100,7 @@ public class Soldado : MonoBehaviour
                 {
                     Destroy(hit.collider.gameObject);
                 }
-                Debug.DrawRay(transform.position, frente, Color.red);
+                Debug.DrawRay(PontodeSaida.transform.position, frente, Color.white);
             }
         }
         else
