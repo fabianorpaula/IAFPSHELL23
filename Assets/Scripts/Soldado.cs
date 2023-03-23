@@ -13,8 +13,10 @@ public class Soldado : MonoBehaviour
     private bool atacando = false;
     private bool zonaDeAtaque = false;
     private int ponteiro;
+    public int hp = 10;
     void Start()
     {
+        Time.timeScale = 5;
         Anim = GetComponent<Animator>();
         Agente = GetComponent<NavMeshAgent>();
         //Randomizar
@@ -77,6 +79,29 @@ public class Soldado : MonoBehaviour
         transform.LookAt(Alvo.transform.position);
         Anim.SetBool("Atirando", true);
         
+    }
+
+    public void Disparando()
+    {
+        RaycastHit hit;
+        Vector3 frente = transform.TransformDirection(Vector3.forward) * 10;
+        if (Physics.Raycast(transform.position, frente, out hit, 10))
+        {
+            if (hit.collider.gameObject.tag == "Inimigo")
+            {
+
+                hit.collider.gameObject.GetComponent<Soldado>().hp--;
+                if(hit.collider.gameObject.GetComponent<Soldado>().hp < 0)
+                {
+                    Destroy(hit.collider.gameObject);
+                }
+                Debug.DrawRay(transform.position, frente, Color.red);
+            }
+        }
+        else
+        {
+           
+        }
     }
 
 }
