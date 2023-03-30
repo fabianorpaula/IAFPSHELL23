@@ -40,6 +40,13 @@ public class Soldado : MonoBehaviour
             if(zonaDeAtaque == true)
             {
                 Atirar();
+                if (Alvo != null)
+                {
+                    if (Vector3.Distance(transform.position, Alvo.transform.position) > 21)
+                    {
+                        zonaDeAtaque = false;
+                    }
+                }
             }
             else
             {
@@ -62,11 +69,19 @@ public class Soldado : MonoBehaviour
     public void Ataque()
     {
         //Encontrou Inimigo
-        Agente.SetDestination(Alvo.transform.position);
-        if(Vector3.Distance(transform.position, Alvo.transform.position) < 5)
+        if(Alvo != null)
         {
-            zonaDeAtaque = true;
+            Agente.SetDestination(Alvo.transform.position);
+            if (Vector3.Distance(transform.position, Alvo.transform.position) < 20)
+            {
+                zonaDeAtaque = true;
+            }
         }
+        else
+        {
+            atacando = false;
+        }
+        
     }
 
     public void Ronda()
@@ -99,14 +114,14 @@ public class Soldado : MonoBehaviour
     {
         RaycastHit hit;
         
-        Vector3 frente = transform.TransformDirection(Vector3.forward) * 10;
-        if (Physics.Raycast(PontodeSaida.transform.position, frente, out hit, 10))
+        Vector3 frente = transform.TransformDirection(Vector3.forward) * 25;
+        if (Physics.Raycast(PontodeSaida.transform.position, frente, out hit, 25))
         {
             if (hit.collider.gameObject.tag == "Inimigo")
             {
 
                 hit.collider.gameObject.GetComponent<Soldado>().hp--;
-                if(hit.collider.gameObject.GetComponent<Soldado>().hp < 0)
+                if(hit.collider.gameObject.GetComponent<Soldado>().hp <= 0)
                 {
                     Destroy(hit.collider.gameObject);
                 }

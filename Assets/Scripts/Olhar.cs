@@ -10,8 +10,8 @@ public class Olhar : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        Vector3 frente = transform.TransformDirection(Vector3.forward) * 10;
-        if(Physics.Raycast(transform.position, frente, out hit, 10))
+        Vector3 frente = transform.TransformDirection(Vector3.forward) * 40;
+        if(Physics.Raycast(transform.position, frente, out hit, 40))
         {
             if(hit.collider.gameObject.tag == "Inimigo")
             {
