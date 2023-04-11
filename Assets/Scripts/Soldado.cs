@@ -10,14 +10,23 @@ public class Soldado : MonoBehaviour
     private GameObject Alvo;
     private Animator Anim;
 
+    //maquina de estado
+    public enum S_Estado { S_ronda, S_perseguir, S_atacar};
+    public S_Estado MeuEstado;
+
     private bool atacando = false;
     private bool zonaDeAtaque = false;
     private int ponteiro;
 
     public GameObject PontodeSaida;
     public int hp = 10;
+
+
+
+
     void Start()
     {
+        MeuEstado = S_Estado.S_ronda;
         Time.timeScale = 5;
         Anim = GetComponent<Animator>();
         Agente = GetComponent<NavMeshAgent>();
@@ -29,44 +38,40 @@ public class Soldado : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(atacando == true)
-        {
-            if(Alvo == null)
-            {
-                atacando = false;
-                zonaDeAtaque = false;
-            }
 
-            if(zonaDeAtaque == true)
-            {
-                Atirar();
-                if (Alvo != null)
-                {
-                    if (Vector3.Distance(transform.position, Alvo.transform.position) > 21)
-                    {
-                        zonaDeAtaque = false;
-                    }
-                }
-            }
-            else
-            {
-                Ataque();
-            }
-            
-        }
-        else
+        ValidarAlvo();
+        if (MeuEstado == S_Estado.S_ronda)
         {
             Ronda();
         }
+        if (MeuEstado == S_Estado.S_perseguir)
+        {
+            CorrerAtras();
+        }
+        if (MeuEstado == S_Estado.S_atacar)
+        {
+
+            Atirar();
+        }
+
         
     }
+
+    void ValidarAlvo()
+    {
+        if(Alvo == null)
+        {
+            MeuEstado = S_Estado.S_ronda;
+        }
+    }
+
     public void Encontrou(GameObject meuAlvo)
     {
         //Recebe o Alvo
         Alvo = meuAlvo;
-        atacando = true;
+        MeuEstado = S_Estado.S_perseguir;
     }
-    public void Ataque()
+    public void CorrerAtras()
     {
         //Encontrou Inimigo
         if(Alvo != null)
@@ -74,13 +79,10 @@ public class Soldado : MonoBehaviour
             Agente.SetDestination(Alvo.transform.position);
             if (Vector3.Distance(transform.position, Alvo.transform.position) < 20)
             {
-                zonaDeAtaque = true;
+                MeuEstado = S_Estado.S_atacar;
             }
         }
-        else
-        {
-            atacando = false;
-        }
+        
         
     }
 
