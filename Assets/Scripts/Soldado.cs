@@ -46,12 +46,27 @@ public class Soldado : MonoBehaviour
         }
         if (MeuEstado == S_Estado.S_perseguir)
         {
-            CorrerAtras();
+            if(Fugiu(40))
+            {
+                MeuEstado = S_Estado.S_ronda;
+            }
+            else
+            {
+                CorrerAtras();
+            }
+            
         }
         if (MeuEstado == S_Estado.S_atacar)
         {
-
-            Atirar();
+            if (Fugiu(20))
+            {
+                MeuEstado = S_Estado.S_ronda;
+            }
+            else
+            {
+                Atirar();
+            }
+            
         }
 
         
@@ -71,6 +86,19 @@ public class Soldado : MonoBehaviour
         Alvo = meuAlvo;
         MeuEstado = S_Estado.S_perseguir;
     }
+    public bool Fugiu(int distanciaAlvo)
+    {
+        Agente.SetDestination(Alvo.transform.position);
+        if (Vector3.Distance(transform.position, Alvo.transform.position) < distanciaAlvo)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void CorrerAtras()
     {
         //Encontrou Inimigo
