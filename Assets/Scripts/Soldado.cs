@@ -40,10 +40,12 @@ public class Soldado : MonoBehaviour
     {
 
         ValidarAlvo();
+        //Esta Fazendo Ronda
         if (MeuEstado == S_Estado.S_ronda)
         {
             Ronda();
         }
+        //Esta Perseguindo
         if (MeuEstado == S_Estado.S_perseguir)
         {
             if(Fugiu(40))
@@ -56,11 +58,12 @@ public class Soldado : MonoBehaviour
             }
             
         }
+        //Esta Atacando
         if (MeuEstado == S_Estado.S_atacar)
         {
             if (Fugiu(20))
             {
-                MeuEstado = S_Estado.S_ronda;
+                MeuEstado = S_Estado.S_perseguir;
             }
             else
             {
