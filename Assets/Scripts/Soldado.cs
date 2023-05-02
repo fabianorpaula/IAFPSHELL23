@@ -21,7 +21,11 @@ public class Soldado : MonoBehaviour
     public GameObject PontodeSaida;
     public int hp = 10;
 
-
+    //Dados
+    public float visao;
+    public float distAtk;
+    public int dano;
+    public float speed;
 
 
     void Start()
@@ -48,7 +52,7 @@ public class Soldado : MonoBehaviour
         //Esta Perseguindo
         if (MeuEstado == S_Estado.S_perseguir)
         {
-            if(Fugiu(40))
+            if(Fugiu(visao))
             {
                 MeuEstado = S_Estado.S_ronda;
             }
@@ -61,7 +65,7 @@ public class Soldado : MonoBehaviour
         //Esta Atacando
         if (MeuEstado == S_Estado.S_atacar)
         {
-            if (Fugiu(20))
+            if (Fugiu(distAtk))
             {
                 MeuEstado = S_Estado.S_perseguir;
             }
@@ -89,7 +93,7 @@ public class Soldado : MonoBehaviour
         Alvo = meuAlvo;
         MeuEstado = S_Estado.S_perseguir;
     }
-    public bool Fugiu(int distanciaAlvo)
+    public bool Fugiu(float distanciaAlvo)
     {
         Agente.SetDestination(Alvo.transform.position);
         if (Vector3.Distance(transform.position, Alvo.transform.position) < distanciaAlvo)
@@ -108,7 +112,7 @@ public class Soldado : MonoBehaviour
         if(Alvo != null)
         {
             Agente.SetDestination(Alvo.transform.position);
-            if (Vector3.Distance(transform.position, Alvo.transform.position) < 20)
+            if (Vector3.Distance(transform.position, Alvo.transform.position) < distAtk)
             {
                 MeuEstado = S_Estado.S_atacar;
             }
@@ -119,7 +123,7 @@ public class Soldado : MonoBehaviour
 
     public void Ronda()
     {
-        Agente.speed = 10;
+        Agente.speed = speed;
         
         Anim.SetBool("Atirando", false);
 
@@ -153,7 +157,7 @@ public class Soldado : MonoBehaviour
             if (hit.collider.gameObject.tag == "Inimigo")
             {
 
-                hit.collider.gameObject.GetComponent<Soldado>().hp--;
+                hit.collider.gameObject.GetComponent<Soldado>().hp = hit.collider.gameObject.GetComponent<Soldado>().hp - dano;
                 if(hit.collider.gameObject.GetComponent<Soldado>().hp <= 0)
                 {
                     Destroy(hit.collider.gameObject);

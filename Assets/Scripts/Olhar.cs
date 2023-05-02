@@ -5,13 +5,13 @@ using UnityEngine;
 public class Olhar : MonoBehaviour
 {
     public Soldado meuSoldado;
-
+    public float visaoO = 40;
     // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-        Vector3 frente = transform.TransformDirection(Vector3.forward) * 40;
-        if(Physics.Raycast(transform.position, frente, out hit, 40))
+        Vector3 frente = transform.TransformDirection(Vector3.forward) * visaoO;
+        if(Physics.Raycast(transform.position, frente, out hit, visaoO))
         {
             if(hit.collider.gameObject.tag == "Inimigo")
             {
